@@ -28,8 +28,5 @@ deployment:
       - echo $DOCKER_MACHINE_KEY > docker_machine/key.pem
       - echo $DOCKER_MACHINE_SERVER > docker_machine/server.pem
       - echo $DOCKER_MACHINE_SERVER_KEY > docker_machine/server-key.pem
-      - export DOCKER_TLS_VERIFY="1" \
-          && export DOCKER_HOST="tcp://188.166.229.200:2376" \
-          && export DOCKER_CERT_PATH="./docker_machine" \
-          && export DOCKER_MACHINE_NAME="dmt"
+      - export DOCKER_TLS_VERIFY="1" && export DOCKER_HOST="tcp://188.166.229.200:2376" && export DOCKER_CERT_PATH="./docker_machine" && export DOCKER_MACHINE_NAME="dmt"
       - docker-compose up -d

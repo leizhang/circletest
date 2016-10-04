@@ -5,16 +5,31 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build -t merrettr/circletest .
+    - docker-compose -v
+    - docker-compose build
 
 test:
   override:
-    - docker run -d -p 80:80 merrettr/circletest; sleep 10
+    - docker-compose up -d; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost
 
 deployment:
   hub:
     branch: master
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push merrettr/circletest
+      #- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      #- docker push merrettr/circletest
+      - mkdir docker_machine
+      - echo $DOCKER_MACHINE_CA > docker_machine/ca.pem
+      - echo $DOCKER_MACHINE_CERT > docker_machine/cert.pem
+      - echo $DOCKER_MACHINE_CONFIG > docker_machine/config.json
+      - echo $DOCKER_MACHINE_ID_RSA > docker_machine/id_rsa
+      - echo $DOCKER_MACHINE_ID_RSA_PUB > docker_machine/id_rsa.pub
+      - echo $DOCKER_MACHINE_KEY > docker_machine/key.pem
+      - echo $DOCKER_MACHINE_SERVER > docker_machine/server.pem
+      - echo $DOCKER_MACHINE_SERVER_KEY > docker_machine/server-key.pem
+      - export DOCKER_TLS_VERIFY="1" \
+          && export DOCKER_HOST="tcp://188.166.229.200:2376" \
+          && export DOCKER_CERT_PATH="./docker_machine" \
+          && export DOCKER_MACHINE_NAME="dmt"
+      - docker-compose up -d

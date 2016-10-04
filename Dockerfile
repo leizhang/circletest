@@ -1,10 +1,4 @@
-FROM node
+FROM nginx:latest
 
-WORKDIR /var/www/html
-
-COPY package.json ./
-RUN npm install
-
-COPY . ./
-
-CMD npm start
+COPY ./index.html /var/www/html/public/index.html
+COPY ./default.conf /etc/nginx/conf.d/default.conf

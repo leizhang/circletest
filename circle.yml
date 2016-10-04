@@ -6,11 +6,11 @@ dependencies:
   override:
     - docker info
     - docker-compose -v
-    - docker-compose build
+    - docker build -t merrettr/circletest .
 
 test:
   override:
-    - docker-compose up -d; sleep 10
+    - docker run -d -p 80:80 merrettr/circletest; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost
 
 deployment:

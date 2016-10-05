@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  nginx:
+    image: merrettr/circletest
+    container_name: circletest_nginx
+    ports:
+      - 80:80

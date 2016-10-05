@@ -1,15 +1,20 @@
 machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
   services:
     - docker
 
 dependencies:
+  pre:
+    - sudo pip install docker-compose
   override:
     - docker info
-    - docker build -t merrettr/circletest .
+    - docker-compose -v
+    - docker-compose build
 
 test:
   override:
-    - docker run -d -p 80:80 merrettr/circletest; sleep 10
+    - docker-compose up -d; sleep 10
     - curl --retry 10 --retry-delay 5 -v http://localhost
 
 deployment:
@@ -20,7 +25,7 @@ deployment:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push merrettr/circletest
       - echo 'copying docker-compose file'
-      - scp ./docker-compose.yml $DEPLOY_USER@$DEPLOY_HOST:./docker-compose.yml
+      - scp ./docker-compose-prod.yml $DEPLOY_USER@$DEPLOY_HOST:./docker-compose.yml
       - echo 'setting docker credentials'
       - ssh $DEPLOY_USER@$DEPLOY_HOST "docker login -u  $DOCKER_USER  -p  $DOCKER_PASS"
       - echo 'pulling images'

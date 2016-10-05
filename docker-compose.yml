@@ -2,7 +2,7 @@ version: "2"
 
 services:
   nginx:
-    image: merrettr/circletest
-    container_name: circletest_nginx
+    build: .
+    container_name: merrettr/circletest
     ports:
       - 80:80

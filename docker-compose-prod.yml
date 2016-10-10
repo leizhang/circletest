@@ -2,7 +2,7 @@ version: "2"
 
 services:
   nginx:
-    image: merrettr/circletest
+    image: docker.merrett.io:5000/circletest
     container_name: circletest_nginx
     ports:
-      - 80:80
+      - 8080:80

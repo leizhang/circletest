@@ -21,4 +21,4 @@ deployment:
   hub:
     branch: master
     commands:
-      - ./deploy.sh
+      - sh ./deploy.sh

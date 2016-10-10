@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Circle currently using old version of docker which still uses the now deprecated email option
 docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS $DOCKER_REGISTRY
 docker tag merrettr/circletest $DOCKER_REPOSITORY

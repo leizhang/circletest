@@ -22,3 +22,5 @@ services:
       dockerfile: Dockerfile-build
     expose:
       - 9000
+    environment:
+      ENV_VAR: ${ENV_LINE}

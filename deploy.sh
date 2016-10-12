@@ -31,7 +31,7 @@ ssh $DEPLOY_USER@$DEPLOY_HOST "docker pull $DOCKER_REGISTRY/merrettr/circletest-
 ssh $DEPLOY_USER@$DEPLOY_HOST "docker pull $DOCKER_REGISTRY/merrettr/circletest-http"
 
 echo 'upping compose'
-ssh $DEPLOY_USER@$DEPLOY_HOST './circletest/docker-compose up -d'
+ssh $DEPLOY_USER@$DEPLOY_HOST 'docker-compose -f ./circletest/docker-compose.yml up -d'
 
 echo 'cleaning up files'
 ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf ./circletest'

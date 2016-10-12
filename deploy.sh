@@ -14,6 +14,8 @@ echo 'pushing image'
 docker push $DOCKER_REGISTRY/merrettr/circletest-app
 docker push $DOCKER_REGISTRY/merrettr/circletest-http
 
+echo 'creating working dir'
+ssh $DEPLOY_USER@$DEPLOY_HOST 'mkdir -p circletest'
 echo 'copying docker-compose file'
 scp ./docker-compose-prod.yml $DEPLOY_USER@$DEPLOY_HOST:./circletest/docker-compose.yml
 echo 'creating env file'

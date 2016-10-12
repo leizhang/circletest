@@ -1,8 +1,18 @@
 version: "2"
 
 services:
-  nginx:
-    image: docker.merrett.io:5000/circletest
-    container_name: circletest_nginx
+  http:
+    image: docker.merrett.io:5000/merrettr/circletest-http
+    container_name: circletest-http
     ports:
-      - 8080:80
+      - 8888:80
+    links:
+      - app
+    volumes_from:
+      - app
+
+  app:
+    image: docker.merrett.io:5000/merrettr/circletest-app
+    container_name: circletest-app
+    expose:
+      - 9000

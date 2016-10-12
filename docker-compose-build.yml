@@ -17,8 +17,8 @@ services:
   app:
     image: merrettr/circletest-app
     container_name: circletest-app
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-build
     expose:
       - 9000
-    volumes:
-      - ./:/var/www/html

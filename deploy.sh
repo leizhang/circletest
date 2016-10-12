@@ -19,7 +19,7 @@ ssh $DEPLOY_USER@$DEPLOY_HOST 'mkdir -p circletest'
 echo 'copying docker-compose file'
 scp ./docker-compose-prod.yml $DEPLOY_USER@$DEPLOY_HOST:./circletest/docker-compose.yml
 echo 'creating env file'
-echo ENV_VAR=$ENV_LINE >> .env
+echo ENV_VAR=$ENV_LINE >> ./circletest/.env
 echo 'copying env file'
 scp ./.env $DEPLOY_USER@$DEPLOY_HOST:./circletest/.env
 
@@ -35,3 +35,6 @@ ssh $DEPLOY_USER@$DEPLOY_HOST 'docker-compose -f ./circletest/docker-compose.yml
 
 echo 'cleaning up files'
 ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf ./circletest'
+
+echo 'cleaning up old images'
+ssh $DEPLOY_USER@$DEPLOY_HOST 'docker rmi $(docker images | grep circletest | awk "{print \$3}")'

@@ -19,7 +19,7 @@ ssh $DEPLOY_USER@$DEPLOY_HOST 'mkdir -p circletest'
 echo 'copying docker-compose file'
 scp ./docker-compose-prod.yml $DEPLOY_USER@$DEPLOY_HOST:./circletest/docker-compose.yml
 echo 'creating env file'
-echo ENV_VAR=$ENV_LINE >> .env
+echo ENV_LINE=$ENV_LINE >> .env
 echo 'copying env file'
 scp ./.env $DEPLOY_USER@$DEPLOY_HOST:./circletest/.env
 

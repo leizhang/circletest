@@ -34,7 +34,4 @@ echo 'upping compose'
 ssh $DEPLOY_USER@$DEPLOY_HOST 'docker-compose -f ./circletest/docker-compose.yml up -d'
 
 echo 'cleaning up files'
-ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf ./circletest'
-
-echo 'cleaning up old images'
-ssh $DEPLOY_USER@$DEPLOY_HOST 'docker rmi $(docker images | grep circletest | awk "{print \$3}")'
+#ssh $DEPLOY_USER@$DEPLOY_HOST 'rm -rf ./circletest'

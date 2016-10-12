@@ -1,6 +1,6 @@
 FROM php:7.0-fpm
 
-ENV ENV_VAR=prod
+ENV ENV_VAR=$ENV_LINE
 
 WORKDIR /var/www/html
 COPY . ./
